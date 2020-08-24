@@ -1,17 +1,19 @@
-﻿using System;
+﻿using Domain.Common;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Orders
 {
-    public class Order
+    public class Order : Entity
     {
         public DateTime CreatedDate { get; set; }
 
-        public ICollection<OrderItem> OrderItems;
+        private readonly List<OrderItem> _orderItems;
+        public IReadOnlyCollection<OrderItem> OrderItems => _orderItems;
 
         public Order()
         {
-            OrderItems = new List<OrderItem>();
+            _orderItems = new List<OrderItem>();
         }
     }
 }
