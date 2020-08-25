@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ECommerceAPI.Controllers
@@ -27,6 +28,12 @@ namespace ECommerceAPI.Controllers
         public async Task<CustomerDto> Get(long id)
         {
             return await Mediator.Send(new GetCustomerQuery { Id = id });
+        }
+
+        [HttpGet]
+        public async Task<IReadOnlyCollection<CustomerDto>> Get()
+        {
+            return await Mediator.Send(new GetCustomersQuery());
         }
 
         [HttpPost]

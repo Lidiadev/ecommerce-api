@@ -1,7 +1,9 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Common;
 using Domain.Customers;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
@@ -29,6 +31,11 @@ namespace Infrastructure.Repositories
         public async Task<Customer> GetAsync(long customerId)
         {
             return await _context.Customers.FindAsync(customerId);
+        }
+
+        public async Task<IReadOnlyCollection<Customer>> GetAllAsync()
+        {
+            return await _context.Customers.ToListAsync();
         }
     }
 }

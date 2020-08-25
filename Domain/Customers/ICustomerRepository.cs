@@ -1,4 +1,5 @@
 ﻿using Domain.Common;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Domain.Customers
@@ -7,5 +8,6 @@ namespace Domain.Customers
     {
         Task<Customer> AddAsync(Customer customer);
         Task<Customer> GetAsync(long customerId);
+        Task<IReadOnlyCollection<Customer>> GetAllAsync();
     }
 }
