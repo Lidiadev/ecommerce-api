@@ -3,13 +3,25 @@ using System;
 
 namespace Domain.Customers
 {
-    public class Customer : Entity
+    public class Customer : Entity, IAggregateRoot
     {
-        private readonly string _name;
-        public CustomerName Name => (CustomerName)_name;
+        private string _name;
+        public virtual CustomerName Name 
+        {
+            get => (CustomerName)_name;
+            private set => _name = value;
+        }
 
-        private readonly string _email;
-        public Email Email => (Email)_email;
+        private string _email;
+        public virtual Email Email
+        {
+            get => (Email)_email;
+            private set => _email = value;
+        }
+
+        protected Customer()
+        {
+        }
 
         public Customer(CustomerName name, Email email)
         {

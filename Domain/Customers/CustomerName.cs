@@ -3,11 +3,15 @@ using System;
 
 namespace Domain.Customers
 {
-    public sealed class CustomerName : ValueObject<CustomerName>
+    public class CustomerName : ValueObject<CustomerName>
     {
-        public string Value { get; }
+        public string Value { get; private set; }
 
-        private CustomerName(string value)
+        protected CustomerName()
+        {
+        }
+
+        protected CustomerName(string value)
         {
             Value = value;
         }
@@ -42,7 +46,7 @@ namespace Domain.Customers
 
         public static explicit operator CustomerName(string customerName)
         {
-            return Create(customerName);
+            return new CustomerName(customerName);
         }
     }
 }

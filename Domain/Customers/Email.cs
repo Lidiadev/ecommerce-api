@@ -4,11 +4,15 @@ using System.Text.RegularExpressions;
 
 namespace Domain.Customers
 {
-    public sealed class Email : ValueObject<Email>
+    public class Email : ValueObject<Email>
     {
-        public string Value { get; }
+        public string Value { get; private set; }
 
-        private Email(string value)
+        protected Email()
+        {
+        }
+
+        protected Email(string value)
         {
             Value = value;
         }
@@ -43,7 +47,7 @@ namespace Domain.Customers
 
         public static explicit operator Email(string email)
         {
-            return Create(email).Value;
+            return new Email(email);//Create(email);
         }
     }
 }
