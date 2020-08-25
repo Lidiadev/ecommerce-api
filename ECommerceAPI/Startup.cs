@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application;
 using ECommerceAPI.Filters;
+using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +25,7 @@ namespace ECommerceAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddInfrastructure(Configuration);
             services.AddApplication();
 
             services.AddControllers(options => options.Filters.Add(new ApiExceptionFilterAttribute()));
