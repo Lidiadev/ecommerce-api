@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application;
+using ECommerceAPI.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,7 +26,7 @@ namespace ECommerceAPI
         {
             services.AddApplication();
 
-            services.AddControllers();
+            services.AddControllers(options => options.Filters.Add(new ApiExceptionFilterAttribute()));
 
             // Register the Swagger services
             services.AddSwaggerDocument(config =>

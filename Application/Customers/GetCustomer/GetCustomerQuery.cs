@@ -1,7 +1,6 @@
-﻿using AutoMapper;
+﻿using Application.Common.Exceptions;
 using Domain.Customers;
 using MediatR;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,12 +14,10 @@ namespace Application.Customers.GetCustomer
     public class GetCustomerQueryHandler : IRequestHandler<GetCustomerQuery, CustomerDto>
     {
         private readonly ICustomerRepository _customerRepository;
-        private readonly IMapper _mapper;
 
-        public GetCustomerQueryHandler(ICustomerRepository customerRepository, IMapper mapper)
+        public GetCustomerQueryHandler(ICustomerRepository customerRepository)
         {
             _customerRepository = customerRepository;
-            _mapper = mapper;
         }
 
         public async Task<CustomerDto> Handle(GetCustomerQuery request, CancellationToken cancellationToken)
@@ -29,7 +26,7 @@ namespace Application.Customers.GetCustomer
 
             if (entity == null)
             {
-                throw new Exception($"Customer not found {request.Id}");
+                throw new NotFoundException(nameof(Customer), request.Id);
             }
 
             return new CustomerDto
