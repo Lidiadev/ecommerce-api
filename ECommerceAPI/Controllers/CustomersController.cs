@@ -1,4 +1,5 @@
 ﻿using Application.Customers.CreateCustomer;
+using Application.Customers.GetCustomer;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +23,11 @@ namespace ECommerceAPI.Controllers
             _logger = logger;
         }
 
+        [HttpGet("{id}")]
+        public async Task<CustomerDto> Get(long id)
+        {
+            return await Mediator.Send(new GetCustomerQuery { Id = id });
+        }
 
         [HttpPost]
         public async Task<ActionResult<long>> Create(CreateCustomerCommand command)
