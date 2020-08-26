@@ -9,5 +9,6 @@ namespace Domain.Customers
         Task<Customer> AddAsync(Customer customer);
         Task<Customer> GetAsync(long customerId);
         Task<IReadOnlyCollection<Customer>> GetAllAsync();
+        Task<Customer> GetByEmailAsync(Email email);
     }
 }

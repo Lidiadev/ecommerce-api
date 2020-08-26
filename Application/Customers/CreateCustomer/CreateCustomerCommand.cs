@@ -27,6 +27,9 @@ namespace Application.Customers.CreateCustomer
             var customerName = CustomerName.Create(request.Name);
             var email = Email.Create(request.Email);
 
+            if (_customerRepository.GetByEmailAsync(email) != null)
+                throw new Exception($"Email {email} is already in use.");
+
             var entity = new Customer(customerName, email);
 
             await _customerRepository.AddAsync(entity);
