@@ -21,7 +21,7 @@ namespace ECommerceAPI.Controllers
 
         public CustomersController(ILogger<CustomersController> logger)
         {
-            _logger = logger;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         [HttpGet("{id}")]

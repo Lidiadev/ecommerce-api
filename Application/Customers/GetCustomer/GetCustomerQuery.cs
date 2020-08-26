@@ -1,6 +1,7 @@
 ﻿using Application.Common.Exceptions;
 using Domain.Customers;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,7 +18,7 @@ namespace Application.Customers.GetCustomer
 
         public GetCustomerQueryHandler(ICustomerRepository customerRepository)
         {
-            _customerRepository = customerRepository;
+            _customerRepository = customerRepository ?? throw new ArgumentNullException(nameof(customerRepository));
         }
 
         public async Task<CustomerDto> Handle(GetCustomerQuery request, CancellationToken cancellationToken)

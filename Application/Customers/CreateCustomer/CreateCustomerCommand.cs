@@ -1,5 +1,6 @@
 ﻿using Domain.Customers;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,7 +19,7 @@ namespace Application.Customers.CreateCustomer
 
         public CreateCustomerCommandHandler(ICustomerRepository customerRepository)
         {
-            _customerRepository = customerRepository;
+            _customerRepository = customerRepository ?? throw new ArgumentNullException(nameof(customerRepository));
         }
 
         public async Task<long> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
