@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Application;
-using ECommerceAPI.Filters;
+using ECommerceAPI.Infrastructure.Filters;
 using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,7 +24,7 @@ namespace ECommerceAPI
             services.AddInfrastructure(Configuration);
             services.AddApplication();
 
-            services.AddControllers(options => options.Filters.Add(new ApiExceptionFilterAttribute()));
+            services.AddControllers(options => options.Filters.Add(typeof(ApiExceptionFilterAttribute)));
 
             // Register the Swagger services
             services.AddSwaggerDocument(config =>
