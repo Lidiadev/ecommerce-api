@@ -1,6 +1,5 @@
 ﻿using Application.Common.Exceptions;
 using ECommerceAPI.Infrastructure.ActionResults;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
@@ -13,14 +12,11 @@ namespace ECommerceAPI.Infrastructure.Filters
     public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
     {
         private readonly ILogger<ApiExceptionFilterAttribute> _logger;
-        private readonly IHostingEnvironment _environment;
         private readonly IDictionary<Type, Action<ExceptionContext>> _exceptionHandlers;
 
-        public ApiExceptionFilterAttribute(ILogger<ApiExceptionFilterAttribute> logger,
-            IHostingEnvironment environment)
+        public ApiExceptionFilterAttribute(ILogger<ApiExceptionFilterAttribute> logger)
         {
             _logger = logger;
-            _environment = environment;
             _exceptionHandlers = new Dictionary<Type, Action<ExceptionContext>>
             {
                 { typeof(NotFoundException), HandleNotFoundException }
