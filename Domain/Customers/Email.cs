@@ -19,11 +19,11 @@ namespace Domain.Customers
 
         public static Email Create(string email)
         {
-            email = (email ?? string.Empty).Trim();
+            email = (email ?? string.Empty).Trim(); 
 
             if (email.Length == 0)
                 throw new Exception("Email should not be empty.");
-
+            
             if (!Regex.IsMatch(email, "^(.+)@(.+)$"))
                 throw new Exception("Email is invalid.");
 
@@ -47,7 +47,7 @@ namespace Domain.Customers
 
         public static explicit operator Email(string email)
         {
-            return new Email(email);//Create(email);
+            return new Email(email);
         }
     }
 }
