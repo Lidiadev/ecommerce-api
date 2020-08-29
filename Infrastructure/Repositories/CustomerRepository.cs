@@ -40,7 +40,7 @@ namespace Infrastructure.Repositories
 
         public async Task<Customer> GetByEmailAsync(Email email)
         {
-            return await _context.Customers.SingleOrDefaultAsync(c => c.Email == email); ;
+            return await _context.Customers.SingleOrDefaultAsync(c => c.Email == email); 
         }
     }
 }

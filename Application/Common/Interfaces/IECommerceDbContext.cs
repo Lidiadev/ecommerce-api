@@ -1,11 +1,13 @@
 ﻿using Domain.Common;
 using Domain.Customers;
+using Domain.Orders;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Common.Interfaces
 {
     public interface IECommerceDbContext : IUnitOfWork
     {
-        public DbSet<Customer> Customers { get; set; }
+        DbSet<Customer> Customers { get; set; }
+        DbSet<Order> Orders { get; set; }
     }
 }
