@@ -1,19 +1,54 @@
 ﻿using Domain.Common;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain.Orders
 {
-    public class Order : Entity
+    public class Order : Entity, IAggregateRoot
     {
-        public DateTime CreatedDate { get; set; }
+        private long _customerId;
+        public virtual long CustomerId
+        {
+            get => _customerId;
+            private set => _customerId = value;
+        }
 
-        private readonly List<OrderItem> _orderItems;
-        public IReadOnlyCollection<OrderItem> OrderItems => _orderItems;
+        public DateTime CreatedDate { get; private set; }
+
+        private readonly List<OrderLine> _orderLines;
+        public IReadOnlyCollection<OrderLine> OrderLines => _orderLines;
 
         public Order()
         {
-            _orderItems = new List<OrderItem>();
+            _orderLines = new List<OrderLine>();
+        }
+
+        public Order(long customerId)
+            : this()
+        {
+            CustomerId = customerId;
+            CreatedDate = DateTime.UtcNow;
+        }
+
+        public void AddOrderItem(long productId, decimal price, int quantity)
+        {
+            var existingOrder = _orderLines.SingleOrDefault(o => o.ProductId == productId);
+
+            if (existingOrder != null)
+            {
+                existingOrder.IncreaseQuantity(quantity);
+            }
+            else
+            {
+                var orderLine = new OrderLine(productId, price, quantity);
+                _orderLines.Add(orderLine);
+            }
+        }
+
+        public decimal GetTotalPrice()
+        {
+            return _orderLines.Sum(l => l.Quantity * l.Price);
         }
     }
 }
