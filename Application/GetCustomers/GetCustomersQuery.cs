@@ -6,13 +6,13 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.Customers.GetCustomer
+namespace Application.Customers.GetCustomers
 {
-    public class GetCustomersQuery : IRequest<IReadOnlyCollection<CustomerDto>>
+    public class GetCustomersQuery : IRequest<IReadOnlyCollection<CustomerDTO>>
     {
     }
 
-    public class GetCustomersQueryHandler : IRequestHandler<GetCustomersQuery, IReadOnlyCollection<CustomerDto>>
+    public class GetCustomersQueryHandler : IRequestHandler<GetCustomersQuery, IReadOnlyCollection<CustomerDTO>>
     {
         private readonly ICustomerRepository _customerRepository;
 
@@ -21,12 +21,12 @@ namespace Application.Customers.GetCustomer
             _customerRepository = customerRepository ?? throw new ArgumentNullException(nameof(customerRepository));
         }
 
-        public async Task<IReadOnlyCollection<CustomerDto>> Handle(GetCustomersQuery request, CancellationToken cancellationToken)
+        public async Task<IReadOnlyCollection<CustomerDTO>> Handle(GetCustomersQuery request, CancellationToken cancellationToken)
         {
             var entities = await _customerRepository.GetAllAsync();
 
-            return entities.Select(c => new CustomerDto
-                {
+            return entities.Select(c => new CustomerDTO
+            {
                     Name = c.Name,
                     Email = c.Email
                 })

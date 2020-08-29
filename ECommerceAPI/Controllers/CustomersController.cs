@@ -1,6 +1,7 @@
 ﻿using Application.Customers.CreateCustomer;
 using Application.Customers.GetCustomer;
 using MediatR;
+using Application.Customers.GetCustomers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -25,22 +26,33 @@ namespace ECommerceAPI.Controllers
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        [HttpGet("{id}")]
-        public async Task<CustomerDto> Get(long id)
+        [HttpGet("{customerId}", Name = "GetCustomer")]
+        public async Task<CustomerDetailDTO> Get(long customerId)
         {
-            return await Mediator.Send(new GetCustomerQuery { Id = id });
+            return await Mediator.Send(new GetCustomerQuery { Id = customerId });
         }
 
         [HttpGet]
-        public async Task<IReadOnlyCollection<CustomerDto>> Get()
+        public async Task<IReadOnlyCollection<CustomerDTO>> Get()
         {
             return await Mediator.Send(new GetCustomersQuery());
         }
 
-        [HttpPost]
+        [HttpPost("CreateCustomer")]
         public async Task<ActionResult<long>> Create(CreateCustomerCommand command)
         {
-            return await Mediator.Send(command);
+            var id = await Mediator.Send(command);
+
+            _logger.LogInformation($"Customer {id} was created.");
+
+            return id;
+        }
+
+        [HttpOptions]
+        public IActionResult GetOptions()
+        {
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST");
+            return Ok();
         }
     }
 }

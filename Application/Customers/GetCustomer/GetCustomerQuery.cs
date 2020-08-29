@@ -2,17 +2,18 @@
 using Domain.Customers;
 using MediatR;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Application.Customers.GetCustomer
 {
-    public class GetCustomerQuery : IRequest<CustomerDto>
+    public class GetCustomerQuery : IRequest<CustomerDetailDTO>
     {
         public long Id { get; set; }
     }
 
-    public class GetCustomerQueryHandler : IRequestHandler<GetCustomerQuery, CustomerDto>
+    public class GetCustomerQueryHandler : IRequestHandler<GetCustomerQuery, CustomerDetailDTO>
     {
         private readonly ICustomerRepository _customerRepository;
 
@@ -21,7 +22,7 @@ namespace Application.Customers.GetCustomer
             _customerRepository = customerRepository ?? throw new ArgumentNullException(nameof(customerRepository));
         }
 
-        public async Task<CustomerDto> Handle(GetCustomerQuery request, CancellationToken cancellationToken)
+        public async Task<CustomerDetailDTO> Handle(GetCustomerQuery request, CancellationToken cancellationToken)
         {
             var entity = await _customerRepository.GetAsync(request.Id);
 
@@ -30,10 +31,25 @@ namespace Application.Customers.GetCustomer
                 throw new NotFoundException(nameof(Customer), request.Id);
             }
 
-            return new CustomerDto
+            return new CustomerDetailDTO
             {
                 Name = entity.Name,
-                Email = entity.Email
+                Email = entity.Email,
+                Orders = entity.Orders
+                        .Select(
+                            o => new OrderDTO
+                            {
+                                OrderLines = o.OrderLines
+                                            .Select(l => new OrderLineDTO
+                                            {
+                                                ProductId = l.ProductId,
+                                                Price = l.Price,
+                                                Quantity = l.Quantity
+                                            })
+                                            .ToList(),
+                                TotalPrice = o.GetTotalPrice()
+                            })
+                        .ToList()
             };
         }
     }
