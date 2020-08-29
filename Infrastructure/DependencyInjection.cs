@@ -17,7 +17,7 @@ namespace Infrastructure
                 options
                 .UseSqlServer(
                     configuration.GetConnectionString("DefaultConnection"),
-                    builder => builder.MigrationsAssembly(typeof(ECommerceDbContext).Assembly.FullName));
+                    builder => builder.MigrationsAssembly(typeof(ECommerceDbContext).Assembly.FullName)));
 
             services.AddScoped<IECommerceDbContext>(provider => provider.GetService<ECommerceDbContext>());
 
