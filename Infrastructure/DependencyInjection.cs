@@ -6,7 +6,6 @@ using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Infrastructure
 {
@@ -18,8 +17,7 @@ namespace Infrastructure
                 options
                 .UseSqlServer(
                     configuration.GetConnectionString("DefaultConnection"),
-                    builder => builder.MigrationsAssembly(typeof(ECommerceDbContext).Assembly.FullName))
-                .UseLoggerFactory(LoggerFactory.Create(builder => builder.AddDebug())));
+                    builder => builder.MigrationsAssembly(typeof(ECommerceDbContext).Assembly.FullName));
 
             services.AddScoped<IECommerceDbContext>(provider => provider.GetService<ECommerceDbContext>());
 
