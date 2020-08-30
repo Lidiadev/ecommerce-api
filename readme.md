@@ -28,7 +28,8 @@ ECommerce is an ASP.NET Core Web API which serves the domain of Customers and Or
 * FluentAssertions
 
 ### Architecture Overview
-The architecture patterns used for this application are based on DDD (Domain-Driven Design) approach.
+The architecture patterns used for this application are based on DDD (Domain-Driven Design) approach 
+following the principles of Clean Architecture.
 
 ### Domain
 
@@ -51,7 +52,14 @@ This layer is a REST API with ASP.NET Core 3.
 This layer depends on both the Application and Infrastructure layers. However, the dependency on Infrastructure is only to support dependency injection. 
 Therefore only *Startup.cs* references Infrastructure.
 
+### Database Configuration
+The solution is configured to use a MSSQL DB.
+
 ## Continuous Integration
 
 **Travis CI** has been used to run the tests.
 Each pushed commit runs the unit tests.
+
+### Testability
+- Unit tests
+- Integration tests.
