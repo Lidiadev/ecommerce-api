@@ -19,7 +19,7 @@ namespace Domain.Orders
         private readonly List<OrderLine> _orderLines;
         public IReadOnlyCollection<OrderLine> OrderLines => _orderLines;
 
-        public Order()
+        protected Order()
         {
             _orderLines = new List<OrderLine>();
         }
@@ -30,8 +30,8 @@ namespace Domain.Orders
             CustomerId = customerId;
             CreatedDate = DateTime.UtcNow;
         }
-
-        public void AddOrderItem(long productId, decimal price, int quantity)
+            
+        public void AddOrderLine(long productId, decimal price, int quantity)
         {
             var existingOrder = _orderLines.SingleOrDefault(o => o.ProductId == productId);
 
