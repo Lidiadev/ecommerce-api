@@ -8,4 +8,3 @@ install:
 script:
  - dotnet build
  - dotnet test ./tests/Domain.UnitTests
- - dotnet test ./tests/ECommerce.IntegrationTests
