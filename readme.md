@@ -36,17 +36,19 @@ following the principles of Clean Architecture.
 
 ### Domain
 
+It is responsible for representing concepts of the business and business rules.
 This contains all entities, interfaces, types and logic specific to the domain layer:
-- domain entities with data and behaviour
-- repository contracts.
+* domain entities with data and behaviour
+* value objects
+* repository contracts.
 
 
 ### Application
 
 It is dependent on the domain layer, but has no dependencies on any other layer or project. 
 This layer defines interfaces that are implemented by outside layers. This layer contains all application logic:
-- commands and command handlers
-- queries and query handlers.
+* commands and command handlers
+* queries and query handlers.
 
 
 ### Infrastructure
