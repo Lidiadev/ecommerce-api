@@ -1,18 +1,23 @@
 ECommerce is an ASP.NET Core Web API which serves the domain of Customers and Orders.
 
-# Domain 
+## Domain 
 
 * Customer has Name and Email. 
 * Customer can have multiple Orders. 
 * Order can belong to only one Customer. 
 * Order has at least two fields: Price and CreatedDate.
 
-# Features
+## Features
 
 * Return a list of customers, without orders; 
 * Return a customer and his orders; 
 * Add a new Order for an existing Customer; 
 * Add a new Customer.
+
+## Prerequirements
+
+* Visual Studio 2019 
+* .NET Core 3.0.1 SDK 
 
 ## Frameworks used:
 * .NET Core 3.1
@@ -22,6 +27,8 @@ ECommerce is an ASP.NET Core Web API which serves the domain of Customers and Or
 * NUnit
 * FluentAssertions
 
+### Architecture Overview
+The architecture patterns used for this application are based on DDD (Domain-Driven Design) approach.
 
 ### Domain
 
@@ -43,3 +50,8 @@ This layer contains classes which are based on interfaces defined within the app
 This layer is a REST API with ASP.NET Core 3. 
 This layer depends on both the Application and Infrastructure layers. However, the dependency on Infrastructure is only to support dependency injection. 
 Therefore only *Startup.cs* references Infrastructure.
+
+## Continuous Integration
+
+**Travis CI** has been used to run the tests.
+Each pushed commit runs the unit tests.
