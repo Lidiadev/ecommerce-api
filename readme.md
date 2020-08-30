@@ -38,6 +38,7 @@ following the principles of Clean Architecture.
 
 It is responsible for representing concepts of the business and business rules.
 This contains all entities, interfaces, types and logic specific to the domain layer:
+
 * domain entities with data and behaviour
 * value objects
 * repository contracts.
@@ -47,6 +48,7 @@ This contains all entities, interfaces, types and logic specific to the domain l
 
 It is dependent on the domain layer, but has no dependencies on any other layer or project. 
 This layer defines interfaces that are implemented by outside layers. This layer contains all application logic:
+
 * commands and command handlers
 * queries and query handlers.
 
@@ -54,8 +56,9 @@ This layer defines interfaces that are implemented by outside layers. This layer
 ### Infrastructure
 
 This layer contains classes which are based on interfaces defined within the application layer:
-- Data persistence infrastructure: repository implementation
-- ORM: Entity Framework Core.
+
+* Data persistence infrastructure: repository implementation
+* ORM: Entity Framework Core.
 
 ### Web API
 
@@ -72,5 +75,5 @@ The solution is configured to use a MSSQL DB.
 Each pushed commit runs the unit tests.
 
 ### Testability
-- Unit tests
-- Integration tests.
+* Unit tests
+* Integration tests.
