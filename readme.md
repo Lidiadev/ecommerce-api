@@ -32,7 +32,7 @@ ECommerce is an ASP.NET Core Web API which serves the domain of Customers and Or
 The architecture patterns used for this application are based on DDD (Domain-Driven Design) approach 
 following the principles of Clean Architecture.
 
-![architecture overview](*/images/architecture.png)
+![architecture overview](images/architecture.png)
 
 ### Domain
 
