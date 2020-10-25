@@ -38,7 +38,7 @@ namespace Application.Orders.CreateOrder
 
             foreach(var orderLine in request.OrderLines)
             {
-                entity.AddOrderItem(orderLine.ProductId, orderLine.Price, orderLine.Quantity);
+                entity.AddOrderLine(orderLine.ProductId, orderLine.Price, orderLine.Quantity);
             }
 
             await _orderRepository.AddAsync(entity);
