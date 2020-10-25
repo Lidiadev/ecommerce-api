@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/Lidiadev/ecommerce-api.svg?branch=master)](https://travis-ci.com/github/Lidiadev/ecommerce-api)
+
 ECommerce is an ASP.NET Core Web API which serves the domain of Customers and Orders.
 
 ## Domain 
